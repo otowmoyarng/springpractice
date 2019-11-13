@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>画面起動用</title>
+    </head>
+    <body>
+        <button onclick="showwindow()">画面起動</button>
+        <script type="text/javascript">
+            function showwindow() {
+                var features = 'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,height=768,width=1280';
+                window.open('./after', '_blank', features);
+                window.open("", "_self").close();
+            }
+        </script>
+    </body>
+</html>
