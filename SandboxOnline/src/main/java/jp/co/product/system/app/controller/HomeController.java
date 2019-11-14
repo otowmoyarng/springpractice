@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.product.system.sys.cache.SystemParameterUtils;
+
 /**
  * Handles requests for the application home page.
  */
@@ -33,7 +35,10 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+		System.out.println("実行メソッド：home");
+		
+		String result = SystemParameterUtils.getPString("search_count");
+		
 		return "home";
 	}
-	
 }

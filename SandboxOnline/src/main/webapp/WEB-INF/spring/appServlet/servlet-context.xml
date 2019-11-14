@@ -51,7 +51,7 @@
         </mvc:interceptor>
     </mvc:interceptors>
 	
-	<beans:bean id="systemParameterCache" class="jp.co.product.system.sys.cache.SystemParameterCache" />
+<!-- 	<beans:bean id="systemParameterCache" class="jp.co.product.system.sys.cache.SystemParameterCache" />
 	<cache:annotation-driven />
 	<beans:bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<beans:property name="caches">
@@ -61,5 +61,5 @@
 				</beans:bean>
 			</beans:set>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 </beans:beans>
