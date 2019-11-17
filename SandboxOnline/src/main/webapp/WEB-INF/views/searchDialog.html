@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>検索画面</title>
+        <link rel="stylesheet" type="text/css" href="../../resources/cs/appcommon.css" th:href="@{/resources/cs/appcommon.css}" />
+        <link rel="stylesheet" type="text/css" href="../../resources/cs/searchDialog.css" th:href="@{/resources/cs/searchDialog.css}" />
+        <script type="text/javascript" src="../../resources/js/appcommon.js" th:src="@{/resources/js/appcommon.js}"></script>
+        <script type="text/javascript" src="../../resources/js/searchDialog.js" th:src="@{/resources/js/searchDialog.js}"></script>
+    </head>
+    <body>
+        <article>
+        	<section>
+        		<fieldset class="searchcondition">
+        			<legend>検索条件</legend>
+        			<form action="/search/dosearch" th:action="@{/search/dosearch}" th:object="${searchform}" method="get" name="searchcondition">
+        				<div>
+        					<label>会社区分</label>
+        					<input type="radio" th:field="*{companykbn}" value="1"/>会社１
+        					<input type="radio" th:field="*{companykbn}" value="2"/>会社２
+        					<input type="radio" th:field="*{companykbn}" value="3"/>会社３
+        					<input type="radio" th:field="*{companykbn}" value="4"/>会社４
+        				</div>
+        				<div>
+        					<label>会社番号</label>
+			    			<input type="text" id="companyno" th:field="*{companyno}" value="1234567890123" form="searchcondition" maxlength="13" placeholder="会社番号を入力" />
+        				</div>
+        				<div>
+        					<!-- <input type="submit" value="検索"/> -->
+        					<button type="submit" form="searchcondition" formtarget="_self">検索</button>
+        				</div>
+        			</form>
+        		</fieldset>
+        	</section>
+        	<section>
+        		<div>
+	        		<div>
+	        			<span>検索結果一覧</span>
+	        		</div>
+	        		<div class="pagenavigaton">
+	        			<a href="" th:href="@{/firstpage}">&laquo;</a>
+	        			<a href="" th:href="@{/prevpage}">&lt;</a>
+	        			<a href="" th:href="@{/nextpage}">&gt;</a>
+	        			<a href="" th:href="@{/prevpage}">&lang;</a>
+	        			<a href="" th:href="@{/nextpage}">&rang;</a>
+	        			<a href="" th:href="@{/prevpage}">&lsaquo;</a>
+	        			<a href="" th:href="@{/nextpage}">&rsaquo;</a>
+	        			<a href="" th:href="@{/lastpage}">&raquo;</a>
+	        			<span th:text="${searchresult.currentpage}">0</span>
+	        			<span>／</span>
+	        			<span th:text="${searchresult.totalpage}">0</span>
+	        			<span th:text="${searchresult.searchcount}">0</span>
+	        			<span>件</span>
+	        		</div>
+        		</div>
+        		<div>
+        			<table class="searchlistheader">
+        				<thead>
+        					<tr>
+        						<td>会社区分</td>
+        						<td>会社名</td>
+        						<td>会社カナ名</td>
+        						<td>会社番号</td>
+        					</tr>
+        				</thead>
+        			</table>
+        		</div>
+        		<div>
+        			<table class="searchlistmeisai">
+        				<tbody>
+        					<tr th:each="row : ${searchresult.searchlist}">
+        						<td th:text="${row.companykbn}">会社区分</td>
+        						<td th:text="${row.companyname}">会社名</td>
+        						<td th:text="${row.companyrname}">会社カナ名</td>
+        						<td th:text="${row.companyno}">会社番号</td>
+        					</tr>
+        				</tbody>
+        			</table>
+        		</div>
+        		<div>
+        			<button type="submit" form="searchcondition">CSV出力</button>
+        		</div>
+        		<div>
+        			<button type="submit" form="searchcondition">選択</button>
+        			<button type="submit" form="searchcondition">キャンセル</button>
+        		</div>
+        	</section>
+        </article>
+    </body>
+</html>
