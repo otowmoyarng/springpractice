@@ -4,8 +4,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,16 +15,45 @@ import jp.co.product.system.sys.cache.SystemParameterUtils;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class HomeController extends ProductBaseConroller {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	/**
+	 * ロガーインスタンス取得
+	 */
+	@Override
+	protected Class<?> getInnertype() {
+		return getClass();
+	}
+	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	/**
+	 * システムルートアクセス１
+	 * 初回起動画面を表示する。
+	 * @return	初回起動画面
+	 */
+	@RequestMapping("/")
+	public String init1() {
+		return "index";
+	}
+	
+	/**
+	 * システムルートアクセス２
+	 * 初回起動画面を表示する。
+	 * @return	初回起動画面
+	 */
+	@RequestMapping("/main")
+	public String init2() {
+		return "main";
+	}
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		//logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("Welcome home! The client locale is {}." + locale.toString());
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);

@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>テスト用起動メイン</title>
+        <link rel="stylesheet" type="text/css" href="../../resources/cs/appcommon.css" th:href="@{/resources/cs/appcommon.css}" />
+        <script type="text/javascript" src="../../resources/js/appcommon.js" th:src="@{/resources/js/appcommon.js}"></script>
+    </head>
+    <body>
+    	<section>
+    		<fieldset>
+    			<legend>検索画面モーダル表示</legend>
+    			<div>
+    				<label>会社番号</label>
+	    			<input type="text" id="companyno" name="companyno" value="1234567890123" form="searchcondition" maxlength="13" placeholder="会社番号を入力" readonly="readonly"/>
+    			</div>
+		        <button onclick="showSearchDialog('1', 'companyno')">検索画面表示</button>
+    		</fieldset>
+    	</section>
+    </body>
+</html>
