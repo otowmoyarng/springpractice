@@ -3,15 +3,12 @@ package jp.co.product.system.app.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.product.system.app.bean.SearchResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
 import jp.co.product.system.app.form.SearchForm;
-import jp.co.product.system.app.mapper.SearchMapper;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -46,15 +43,16 @@ public class SearchServiceImpl implements SearchService {
 		for (int count = 0; count < 4; count++) {
 			final String kbn = Integer.toString(count + 1);
 			
-			if (Objects.equals(form.getCompanykbn(), kbn)) {
+			//if (Objects.equals(form.getCompanykbn(), kbn)) {
 				
 				SearchResultBean bean = new SearchResultBean();
 				bean.setCompanykbn(kbn);
 				bean.setCompanyname("‰ïŽÐ–¼" + kbn);
 				bean.setCompanyname("‰ïŽÐƒJƒi" + kbn);
-				bean.setCompanyno("123456789000" + kbn);
+				bean.setCompanyno("100" + kbn + "00");
+				bean.setHojinno("123456789000" + kbn);
 				searchlist.add(bean);
-			}
+			//}
 		}
 		
 		// ŒŸõˆ—

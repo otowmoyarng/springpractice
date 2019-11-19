@@ -1,1 +1,56 @@
 @charset "UTF-8";
+
+.searchresult-header {
+	width: 100%;
+	margin: 10px 0px 0px 0px;
+}
+.searchresult-header div {
+	display: inline-block;
+}
+.searchresult-tablerecord {
+/*.searchresult-table {*/
+	overflow-x: scroll; 
+	overflow-x: auto; 
+	min-height: 200px;
+	min-width: 300px;
+	height: 200px;
+	width: 300px;
+}
+/*
+.searchlist {
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+.searchlist th,
+.searchlist tr,
+.searchlist td {
+	border:2px #7A7A7A solid;
+}
+*/
+.searchlistheader,
+.searchlistmeisai {
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+.searchlistheader tr,
+.searchlistheader th,
+.searchlistmeisai tr,
+.searchlistmeisai td {
+	border:2px #7A7A7A solid;
+}
+.selected {
+	width: 50px;
+	text-align: center;
+}
+.companykbn {
+	width: 50px;
+	text-align: center;
+}
+.companyname,
+.companyrname {
+	width: 200px;
+}
+.companyno,
+.hojinno {
+	width: 100px;
+}

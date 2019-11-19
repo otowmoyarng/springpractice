@@ -6,6 +6,7 @@ public class SearchResultBean {
 	private String companyname;
 	private String companyrname;
 	private String companyno;
+	private String hojinno;
 	
 	public String getCompanykbn() {
 		return companykbn;
@@ -30,5 +31,11 @@ public class SearchResultBean {
 	}
 	public void setCompanyno(String companyno) {
 		this.companyno = companyno;
+	}
+	public String getHojinno() {
+		return hojinno;
+	}
+	public void setHojinno(String hojinno) {
+		this.hojinno = hojinno;
 	}
 }
