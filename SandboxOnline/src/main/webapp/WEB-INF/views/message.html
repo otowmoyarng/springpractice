@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>メッセージボックス表示テスト</title>
+        <link rel="stylesheet" type="text/css" href="../../resources/cs/appcommon.css" th:href="@{/resources/cs/appcommon.css}" />
+        <script type="text/javascript" src="../../resources/js/appcommon.js" th:src="@{/resources/js/appcommon.js}"></script>
+        <script>
+        	function checkerror(errorflg) {
+        		var url = "./show/" + errorflg;
+        		window.open(url, "_self");
+        	}
+        	function showMsgBox() {
+        		if ("${errorflg}" != null) {
+   					window.alert("errorflg：" + "${errorflg}");
+        		} else
+      				window.alert("エラーなし");
+        	}
+        </script>
+    </head>
+    <body onload="showMsgBox();">
+    	<section>
+    		<button onclick="checkerror(1);">エラーあり</button>
+    		<button onclick="checkerror(0);">エラーなし</button>
+    		<button onclick="checkerror('');">リクエストパラメータなし</button>
+    	</section>
+    </body>
+</html>
