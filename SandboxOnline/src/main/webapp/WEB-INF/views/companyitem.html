@@ -1,0 +1,49 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>会社一覧画面</title>
+        <link rel="stylesheet" type="text/css" href="../../resources/cs/appcommon.css" th:href="@{/resources/cs/appcommon.css}" />
+        <link rel="stylesheet" type="text/css" href="../../resources/cs/companylist.css" th:href="@{/resources/cs/companylist.css}" />
+        <script type="text/javascript" src="../../resources/js/appcommon.js" th:src="@{/resources/js/appcommon.js}"></script>
+        <script type="text/javascript" src="../../resources/js/companylist.js" th:src="@{/resources/js/companylist.js}"></script>
+    </head>
+    <body>
+        <article>
+   			<form action="companyitem.html" th:action="@{/companyitem/search}" th:object="${companyitem}" method="post">
+	        	<section>
+	        		<fieldset class="searchcondition">
+	        			<legend>検索条件</legend>
+        				<table>
+        					<tr>
+        						<td>
+        							<label>会社区分</label>
+        						</td>
+        						<td>
+					    			<input type="text" name="companykbn" th:field="*{companykbn}" th:value="*{companykbn}" placeholder="会社番号を入力" />
+        						</td>
+        					</tr>
+        					<tr>
+        						<td>
+		        					<label>会社番号</label>
+        						</td>
+        						<td>
+					    			<input type="text" name="companyno" th:field="*{companyno}" value="1234567890123" maxlength="13" placeholder="会社番号を入力" />
+        						</td>
+        					</tr>
+        					<tr>
+        						<td>
+        						</td>
+        						<td>
+        						</td>
+        					</tr>
+        				</table>
+	        		</fieldset>
+	        		<div>
+	        			<button type="submit" name="update">更新</button>
+	        		</div>
+	        	</section>
+   			</form>
+        </article>
+    </body>
+</html>

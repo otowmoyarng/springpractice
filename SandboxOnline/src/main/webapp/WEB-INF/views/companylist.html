@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>検索画面</title>
+        <title>会社一覧画面</title>
         <link rel="stylesheet" type="text/css" href="../../resources/cs/appcommon.css" th:href="@{/resources/cs/appcommon.css}" />
-        <link rel="stylesheet" type="text/css" href="../../resources/cs/searchDialog.css" th:href="@{/resources/cs/searchDialog.css}" />
+        <link rel="stylesheet" type="text/css" href="../../resources/cs/companylist.css" th:href="@{/resources/cs/companylist.css}" />
         <script type="text/javascript" src="../../resources/js/appcommon.js" th:src="@{/resources/js/appcommon.js}"></script>
-        <script type="text/javascript" src="../../resources/js/searchDialog.js" th:src="@{/resources/js/searchDialog.js}"></script>
+        <script type="text/javascript" src="../../resources/js/companylist.js" th:src="@{/resources/js/companylist.js}"></script>
     </head>
     <body>
         <article>
-   			<form action="searchDialog.html" th:action="@{/search/dosearch}" th:object="${searchform}" method="post" name="searchcondition">
+   			<form action="companylist.html" th:action="@{/company/search}" th:object="${searchform}" method="post" name="searchcondition">
 	        	<section>
 	        		<fieldset class="searchcondition">
 	        			<legend>検索条件</legend>
@@ -38,7 +38,7 @@
 	        						<td>
 	        						</td>
 	        						<td>
-			        					<button type="submit" form="searchcondition">検索</button>
+			        					<button type="submit" name="search" form="searchcondition">検索</button>
 	        						</td>
 	        					</tr>
 	        				</table>
@@ -68,12 +68,9 @@
 	        			<table class="searchlistheader">
 	        				<thead>
 	        					<tr>
-	        						<th class="selected" rowspan="2">選択</th>
-	        						<th class="companykbn" rowspan="2">会社区分</th>
+	        						<th class="companykbn">会社区分</th>
 	        						<th class="companyname">会社名</th>
 	        						<th class="companyno">会社番号</th>
-	        					</tr>
-	        					<tr>
 	        						<th class="companyrname">会社カナ名</th>
 	        						<th class="hojinno">法人番号</th>
 	        					</tr>
@@ -83,66 +80,51 @@
 	        		<div class="searchresult-tablerecord">
 	        			<table class="searchlistmeisai">
 	        				<tbody id="searchlist-tbody">
-	        				    <!--/*/ <th:block th:each="row : ${searchresult.searchlist}"> /*/-->
+	        				    <th:block th:each="row : ${searchresult.searchlist}">
 	      					        <tr>
-	             						<td class="selected" rowspan="2">
-	             							<input type="radio" name="selected" />
-	             						</td>
-	        						    <td class="companykbn" th:text="${row.companykbn}" rowspan="2">会社区分</td>
+	        						    <td class="companykbn" th:text="${row.companykbn}">会社区分</td>
 	        						    <td class="companyname" th:text="${row.companyname}">会社名</td>
-	        						    <td class="companyno" th:text="${row.companyno}">会社番号</td>
-	        					    </tr>
-	      					        <tr>
+	        						    <td class="companyno">
+	        						    	<a href="./companyitem.html" th:href="@{/company/item(companykbn=${row.companykbn},companyno=${row.companyno},companybno=${row.companybno})}" th:text="${row.companyno}"></a>
+	        						    </td>
 	        						    <td class="companyrname" th:text="${row.companyrname}">会社カナ名</td>
 	        						    <td class="hojinno" th:text="${row.hojinno}">法人番号</td>
 	        					    </tr>
-	        				    <!--/*/ </th:block> /*/-->
+	        				    </th:block>
 	        				    <!--/*-->
 	      					        <tr>
-	             						<td class="selected" rowspan="2">
-	             							<input type="radio" name="selected" />
-	             						</td>
-	        						    <td class="companykbn" rowspan="2">Ａ</td>
+	        						    <td class="companykbn">Ａ</td>
 	        						    <td class="companyname">株式会社ACE</td>
-	        						    <td class="companyno">111222</td>
-	        					    </tr>
-	      					        <tr>
+	        						    <td class="companyno">
+	        						    	<a href="./companyitem.html">111222</a>
+	        						    </td>
 	        						    <td class="companyrname">エース</td>
 	        						    <td class="hojinno">1234567890001</td>
 	        					    </tr>
 	      					        <tr>
-	             						<td class="selected" rowspan="2">
-	             							<input type="radio" name="selected" />
-	             						</td>
-	        						    <td class="companykbn" rowspan="2">B</td>
+	        						    <td class="companykbn">B</td>
 	        						    <td class="companyname">株式会社BIG</td>
-	        						    <td class="companyno">111333</td>
-	        					    </tr>
-	      					        <tr>
+	        						    <td class="companyno">
+	        						    	<a href="./companyitem.html">111333</a>
+	        						    </td>
 	        						    <td class="companyrname">ビッグ</td>
 	        						    <td class="hojinno">1234567890002</td>
 	        					    </tr>
 	      					        <tr>
-	             						<td class="selected" rowspan="2">
-	             							<input type="radio" name="selected" />
-	             						</td>
-	        						    <td class="companykbn" rowspan="2">C</td>
+	        						    <td class="companykbn">C</td>
 	        						    <td class="companyname">株式会社CORP</td>
-	        						    <td class="companyno">111444</td>
-	        					    </tr>
-	      					        <tr>
+	        						    <td class="companyno">
+	        						    	<a href="./companyitem.html">111444</a>
+	        						    </td>
 	        						    <td class="companyrname">コープ</td>
 	        						    <td class="hojinno">1234567890003</td>
 	        					    </tr>
 	      					        <tr>
-	             						<td class="selected" rowspan="2">
-	             							<input type="radio" name="selected" />
-	             						</td>
-	        						    <td class="companykbn" rowspan="2">D</td>
+	        						    <td class="companykbn">D</td>
 	        						    <td class="companyname">株式会社Duck</td>
-	        						    <td class="companyno">111555</td>
-	        					    </tr>
-	      					        <tr>
+	        						    <td class="companyno">
+	        						    	<a href="./companyitem.html">111555</a>
+	        						    </td>
 	        						    <td class="companyrname">ダック</td>
 	        						    <td class="hojinno">1234567890005</td>
 	        					    </tr>
@@ -152,10 +134,6 @@
 	        		</div>
 	        		<div>
 	        			<button type="submit" form="searchcondition">CSV出力</button>
-	        		</div>
-	        		<div>
-	        			<button type="submit" form="searchcondition" onclick="getSelectedItms();">選択</button>
-	        			<button type="submit" form="searchcondition" onclick="window.close();">キャンセル</button>
 	        		</div>
 	        	</section>
    			</form>
