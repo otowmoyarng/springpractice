@@ -25,8 +25,8 @@ public class MessageController extends ProductBaseConroller {
 	@RequestMapping(value = "show/{errorflg}", method = RequestMethod.GET)
 	public String message(Model model, @PathVariable("errorflg") String errorflg, Map<String,String> map) {
 		logger.info("errorflg:" + errorflg);
-		model.addAttribute("errorflg", errorflg == null ? "-1" : errorflg);
-		map.put("errorflg", errorflg == null ? "-1" : errorflg);
+		model.addAttribute("errorflg", errorflg == null ? "" : errorflg);
+		//map.put("errorflg", errorflg == null ? "" : errorflg);
 		return "message";
 	}
 }

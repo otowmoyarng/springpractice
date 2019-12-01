@@ -11,17 +11,22 @@
         		window.open(url, "_self");
         	}
         	function showMsgBox() {
-        		if ("${errorflg}" != null) {
-   					window.alert("errorflg：" + "${errorflg}");
-        		} else
+        		var errorflg = document.getElementById("errorflg").value;
+        		if (errorflg === "") {
+   					window.alert("初期表示");
+        		} else if (errorflg != null) {
+   					window.alert("errorflg：" + errorflg);
+        		} else {
       				window.alert("エラーなし");
+        		}
         	}
         </script>
     </head>
     <body onload="showMsgBox();">
+    	<input type="hidden" id="errorflg" th:value="${errorflg}" />
     	<section>
-    		<button onclick="checkerror(1);">エラーあり</button>
-    		<button onclick="checkerror(0);">エラーなし</button>
+    		<button onclick="checkerror('on');">エラーあり</button>
+    		<button onclick="checkerror('off');">エラーなし</button>
     		<button onclick="checkerror('');">リクエストパラメータなし</button>
     	</section>
     </body>

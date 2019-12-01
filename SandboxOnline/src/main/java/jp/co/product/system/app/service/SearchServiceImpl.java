@@ -39,21 +39,6 @@ public class SearchServiceImpl implements SearchService {
 //			bean.setCompanyno("123456789000" + kbn);
 //			searchalllist.add(bean);
 //		}
-		List<SearchResultBean> searchlist = new ArrayList<SearchResultBean>();
-		for (int count = 0; count < 4; count++) {
-			final String kbn = Integer.toString(count + 1);
-			
-			//if (Objects.equals(form.getCompanykbn(), kbn)) {
-				
-				SearchResultBean bean = new SearchResultBean();
-				bean.setCompanykbn(kbn);
-				bean.setCompanyname("会社名" + kbn);
-				bean.setCompanyname("会社カナ" + kbn);
-				bean.setCompanyno("100" + kbn + "00");
-				bean.setHojinno("123456789000" + kbn);
-				searchlist.add(bean);
-			//}
-		}
 		
 		// 検索処理
 //		List<SearchResultBean> searchlist = searchalllist.stream().filter(entity -> {
@@ -69,11 +54,30 @@ public class SearchServiceImpl implements SearchService {
 //			searchlist = new ArrayList<SearchResultBean>();
 		// TODO
 		
-		container.setSearchlist(searchlist);
+		container.setSearchlist(getSearchList());
 		
 		return container;
 	}
 
+	/**
+	 * 明細を取得する
+	 */
+	@Override
+	public SearchResultBean searchitem(String companykbn, String companyno, String companybno) {
+	
+		List<SearchResultBean> searchlist = getSearchList();
+		SearchResultBean result = null;
+		for (SearchResultBean entity : searchlist) {
+			if (Objects.equals(companykbn, entity.getCompanykbn())
+			 && Objects.equals(companyno, entity.getCompanyno())
+			 && Objects.equals(companybno, entity.getCompanybno())) {
+				result = entity;
+				break;
+			}
+		}
+		return result == null ? new SearchResultBean() : result;
+	}
+	
 	/**
 	 * ファイル出力
 	 * @param	検索結果
@@ -99,5 +103,30 @@ public class SearchServiceImpl implements SearchService {
 		}
 		
 		return outputlist;
+	}
+	
+	/**
+	 * 検索結果を取得する
+	 * @return
+	 */
+	List<SearchResultBean> getSearchList() {
+		
+		List<SearchResultBean> searchlist = new ArrayList<SearchResultBean>();
+		for (int count = 0; count < 4; count++) {
+			final String kbn = Integer.toString(count + 1);
+			
+			//if (Objects.equals(form.getCompanykbn(), kbn)) {
+				
+				SearchResultBean bean = new SearchResultBean();
+				bean.setCompanykbn(kbn);
+				bean.setCompanyname("会社名" + kbn);
+				bean.setCompanyname("会社カナ" + kbn);
+				bean.setCompanyno("100" + kbn + "00");
+				bean.setCompanybno("000001");
+				bean.setHojinno("123456789000" + kbn);
+				searchlist.add(bean);
+			//}
+		}
+		return searchlist;
 	}
 }

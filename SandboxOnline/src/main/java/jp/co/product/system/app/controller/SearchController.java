@@ -49,11 +49,11 @@ public class SearchController extends ProductBaseConroller {
 	}
 	
  	/**
-	 * ŒŸõˆ—
+	   * ŒŸõˆ—
 	 * @param	form	ŒŸõğŒ
 	 * @return
 	 */
-	@RequestMapping(value = "/dosearch", method = RequestMethod.GET)
+	@RequestMapping(value = "/dosearch", method = RequestMethod.POST)
 	public ModelAndView search(@ModelAttribute("searchform") SearchForm form) {
 		
 		ModelAndView mv = new ModelAndView();

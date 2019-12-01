@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="jp.co.product.system">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

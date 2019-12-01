@@ -11,6 +11,9 @@ public interface SearchService {
 	// 検索処理
 	SearchResultContainer<SearchResultBean> search(SearchForm form);
 	
+	// 検索処理
+	SearchResultBean searchitem(String companykbn, String companyno, String companybno);
+	
 	// ファイル出力
 	List<String> output(List<SearchResultBean> list);
 }
