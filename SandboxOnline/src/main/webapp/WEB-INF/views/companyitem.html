@@ -10,17 +10,17 @@
     </head>
     <body>
         <article>
-   			<form action="companyitem.html" th:action="@{/companyitem/search}" th:object="${companyitem}" method="post">
+   			<form action="companyitem.html" th:action="@{/companyitem}" th:object="${companyitem}" method="post">
 	        	<section>
 	        		<fieldset class="searchcondition">
-	        			<legend>検索条件</legend>
+	        			<legend>会社情報</legend>
         				<table>
         					<tr>
         						<td>
         							<label>会社区分</label>
         						</td>
         						<td>
-					    			<input type="text" name="companykbn" th:field="*{companykbn}" th:value="*{companykbn}" placeholder="会社番号を入力" />
+					    			<input type="text" name="companykbn" th:field="*{companykbn}" placeholder="会社番号を入力" />
         						</td>
         					</tr>
         					<tr>
@@ -33,14 +33,41 @@
         					</tr>
         					<tr>
         						<td>
+		        					<label>会社番号(枝番)</label>
         						</td>
         						<td>
+					    			<input type="text" name="companybno" th:field="*{companybno}" value="1234567890123" maxlength="13" placeholder="会社番号(枝番)を入力" />
+        						</td>
+        					</tr>
+        					<tr>
+        						<td>
+        							<label>会社名</label>
+        						</td>
+        						<td>
+					    			<input type="text" name="companyname" th:field="*{companyname}" placeholder="会社名を入力" />
+        						</td>
+        					</tr>
+        					<tr>
+        						<td>
+        							<label>会社カナ名</label>
+        						</td>
+        						<td>
+					    			<input type="text" name="companyrname" th:field="*{companyrname}" placeholder="会社カナ名を入力" />
+        						</td>
+        					</tr>
+        					<tr>
+        						<td>
+		        					<label>法人番号</label>
+        						</td>
+        						<td>
+					    			<input type="text" name="hojinno" th:field="*{hojinno}" value="1234567890123" maxlength="13" placeholder="法人番号を入力" />
         						</td>
         					</tr>
         				</table>
 	        		</fieldset>
 	        		<div>
-	        			<button type="submit" name="update">更新</button>
+	        			<button type="submit" name="/update" value="update">更新</button>
+	        			<button type="submit" name="/cancel" value="cancel">キャンセル</button>
 	        		</div>
 	        	</section>
    			</form>

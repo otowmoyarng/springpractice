@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.product.system.app.bean.SearchResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
@@ -21,7 +19,7 @@ import jp.co.product.system.app.service.SearchService;
 
 @Controller
 @RequestMapping("/company")
-@SessionAttributes(types = CompanySessionDTO.class, value = "CompanySessionKey")
+//@SessionAttributes(types = CompanySessionDTO.class, value = "CompanySessionKey")
 public class CompanyController extends ProductBaseConroller {
 
 	@Autowired
@@ -35,6 +33,16 @@ public class CompanyController extends ProductBaseConroller {
 		return getClass();
 	}
 	
+	@ModelAttribute("searchform")
+	SearchForm setupSearchForm() {
+		return new SearchForm();
+	}
+	
+	@ModelAttribute("searchresult")
+	SearchResultContainer<SearchResultBean> setupSearchResultContainer() {
+		return new SearchResultContainer<SearchResultBean>();
+	}
+	
 	/**
 	 * èâä˙ï\é¶
 	 * @param	model	Mode
@@ -42,8 +50,8 @@ public class CompanyController extends ProductBaseConroller {
 	 */
 	@RequestMapping(value = "/", params = "init")
 	public String init(Model model) {
-		model.addAttribute("searchform", new SearchForm());
-		model.addAttribute("searchresult", new SearchResultContainer<SearchResultBean>());
+//		model.addAttribute("searchform", new SearchForm());
+//		model.addAttribute("searchresult", new SearchResultContainer<SearchResultBean>());
 		return "companylist";
 	}
 	
@@ -71,7 +79,7 @@ public class CompanyController extends ProductBaseConroller {
 	 * @param	model	Mode
 	 * @return
 	 */
-	@RequestMapping(value = "/item", method = RequestMethod.GET)
+//	@RequestMapping(value = "/item", method = RequestMethod.GET)
 	public String item(@RequestParam(value = "companykbn", required = false) String companykbn,
 					   @RequestParam(value = "companyno", required = false) String companyno,
 					   @RequestParam(value = "companybno", required = false) String companybno,
@@ -86,7 +94,7 @@ public class CompanyController extends ProductBaseConroller {
 		request.setAttribute("companykbn", companykbn);
 		request.setAttribute("companyno", companyno);
 		request.setAttribute("companybno", companybno);
-		return "forword:/companyitem?init";
+		return "forward:/companyitem/init?init";
 	}
 	
  	/**

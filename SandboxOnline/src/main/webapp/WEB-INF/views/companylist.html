@@ -64,7 +64,6 @@
 		        		</div>
 	        		</div>
 	        		<div class="searchresult-tableheader">
-	<!--         			<table class="searchlist"> -->
 	        			<table class="searchlistheader">
 	        				<thead>
 	        					<tr>
@@ -85,7 +84,7 @@
 	        						    <td class="companykbn" th:text="${row.companykbn}">会社区分</td>
 	        						    <td class="companyname" th:text="${row.companyname}">会社名</td>
 	        						    <td class="companyno">
-	        						    	<a href="./companyitem.html" th:href="@{/company/item(companykbn=${row.companykbn},companyno=${row.companyno},companybno=${row.companybno})}" th:text="${row.companyno}"></a>
+	        						    	<a href="./companyitem.html" th:href="@{/companyitem(companykbn=${row.companykbn},companyno=${row.companyno},companybno=${row.companybno})}" th:text="${row.companyno}"></a>
 	        						    </td>
 	        						    <td class="companyrname" th:text="${row.companyrname}">会社カナ名</td>
 	        						    <td class="hojinno" th:text="${row.hojinno}">法人番号</td>

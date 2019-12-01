@@ -66,11 +66,15 @@ public class SearchServiceImpl implements SearchService {
 	public SearchResultBean searchitem(String companykbn, String companyno, String companybno) {
 	
 		List<SearchResultBean> searchlist = getSearchList();
-		SearchResultBean result = searchlist.stream().filter(entity -> {
-			return Objects.equals(companykbn, entity.getCompanykbn())
-				 && Objects.equals(companyno, entity.getCompanyno())
-				 && Objects.equals(companybno, entity.getCompanybno());
-		}).findFirst().get();
+		SearchResultBean result = null;
+		for (SearchResultBean entity : searchlist) {
+			if (Objects.equals(companykbn, entity.getCompanykbn())
+			 && Objects.equals(companyno, entity.getCompanyno())
+			 && Objects.equals(companybno, entity.getCompanybno())) {
+				result = entity;
+				break;
+			}
+		}
 		return result == null ? new SearchResultBean() : result;
 	}
 	
