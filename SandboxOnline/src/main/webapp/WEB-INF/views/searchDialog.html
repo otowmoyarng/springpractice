@@ -8,7 +8,7 @@
         <script type="text/javascript" src="../../resources/js/appcommon.js" th:src="@{/resources/js/appcommon.js}"></script>
         <script type="text/javascript" src="../../resources/js/searchDialog.js" th:src="@{/resources/js/searchDialog.js}"></script>
     </head>
-    <body onload="setParams()">
+    <body onload="initialize();">
         <article>
    			<form action="searchDialog.html" th:action="@{/search/dosearch}" th:object="${searchform}" method="post" name="searchcondition">
 	        	<section>
@@ -20,10 +20,10 @@
 	        							<label>会社区分</label>
 	        						</td>
 	        						<td>
-			        					<input type="radio" id="companykbn1" name="companykbn" th:field="*{companykbn}" value="1" disabled="disabled" />会社１
-			        					<input type="radio" id="companykbn2" name="companykbn" th:field="*{companykbn}" value="2" disabled="disabled" />会社２
-			        					<input type="radio" id="companykbn3" name="companykbn" th:field="*{companykbn}" value="3" disabled="disabled" />会社３
-			        					<input type="radio" id="companykbn4" name="companykbn" th:field="*{companykbn}" value="4" disabled="disabled" />会社４
+			        					<input type="radio" id="companykbn1" th:field="*{companykbn}" value="1" disabled="disabled" />会社１
+			        					<input type="radio" id="companykbn2" th:field="*{companykbn}" value="2" disabled="disabled" />会社２
+			        					<input type="radio" id="companykbn3" th:field="*{companykbn}" value="3" disabled="disabled" />会社３
+			        					<input type="radio" id="companykbn4" th:field="*{companykbn}" value="4" disabled="disabled" />会社４
 			        					<input type="hidden" id="hdn_companykbn" name="companykbn"/>
 	        						</td>
 	        					</tr>
@@ -32,7 +32,7 @@
 			        					<label>会社番号</label>
 	        						</td>
 	        						<td>
-						    			<input type="text" name="companyno" th:field="*{companyno}" value="1234567890123" form="searchcondition" maxlength="13" placeholder="会社番号を入力" />
+						    			<input type="text" id="companyno" th:field="*{companyno}" value="1234567890123" form="searchcondition" maxlength="13" placeholder="会社番号を入力" />
 	        						</td>
 	        					</tr>
 	        					<tr>
@@ -65,7 +65,6 @@
 		        		</div>
 	        		</div>
 	        		<div class="searchresult-tableheader">
-	<!--         			<table class="searchlist"> -->
 	        			<table class="searchlistheader">
 	        				<thead>
 	        					<tr>
@@ -82,9 +81,9 @@
 	        			</table>
 	        		</div>
 	        		<div class="searchresult-tablerecord">
-	        			<table class="searchlistmeisai">
-	        				<tbody id="searchlist-tbody">
-	        				    <!--/*/ <th:block th:each="row : ${searchresult.searchlist}"> /*/-->
+	        			<table class="searchlistmeisai" id="searchlistmeisai">
+<!-- 	        				<tbody id="searchlist-tbody"> -->
+	        				    <th:block th:each="row : ${searchresult.searchlist}">
 	      					        <tr>
 	             						<td class="selected" rowspan="2">
 	             							<input type="radio" name="selected" />
@@ -97,7 +96,7 @@
 	        						    <td class="companyrname" th:text="${row.companyrname}">会社カナ名</td>
 	        						    <td class="hojinno" th:text="${row.hojinno}">法人番号</td>
 	        					    </tr>
-	        				    <!--/*/ </th:block> /*/-->
+	        				    </th:block>
 	        				    <!--/*-->
 	      					        <tr>
 	             						<td class="selected" rowspan="2">
@@ -148,15 +147,15 @@
 	        						    <td class="hojinno">1234567890005</td>
 	        					    </tr>
 	        				    <!--*/-->
-	        				</tbody>
+<!-- 	        				</tbody> -->
 	        			</table>
 	        		</div>
 	        		<div>
 	        			<button type="submit" form="searchcondition">CSV出力</button>
 	        		</div>
 	        		<div>
-	        			<button type="submit" form="searchcondition" onclick="getSelectedItms();">選択</button>
-	        			<button type="submit" form="searchcondition" onclick="window.close();">キャンセル</button>
+	        			<button type="submit" id="selectedbutton" form="searchcondition" onclick="onclickSelectedButton();">選択</button>
+	        			<button type="submit" form="searchcondition" onclick="onclickCancelButton()">キャンセル</button>
 	        		</div>
 	        	</section>
    			</form>
