@@ -70,6 +70,50 @@ public class CompanyController extends ProductBaseConroller {
 		return searchmain(form, model, Mode.SEARCH);
 	}
 	
+ 	/**
+	 * ページ送り	先頭ページ
+	 * @param	form	検索条件
+	 * @param	model	Mode
+	 * @return
+	 */
+	@RequestMapping(value = "/search", params = "firstpage", method = RequestMethod.POST)
+	public String firstpage(@ModelAttribute("searchform") CompanyForm form, Model model) {
+		return searchmain(form, model, Mode.FIRSTPAGE);
+	}
+	
+ 	/**
+	 * ページ送り	前ページ
+	 * @param	form	検索条件
+	 * @param	model	Mode
+	 * @return
+	 */
+	@RequestMapping(value = "/search", params = "prevpage", method = RequestMethod.POST)
+	public String prevpage(@ModelAttribute("searchform") CompanyForm form, Model model) {
+		return searchmain(form, model, Mode.PREVPAGE);
+	}
+	
+ 	/**
+	 * ページ送り	次ページ
+	 * @param	form	検索条件
+	 * @param	model	Mode
+	 * @return
+	 */
+	@RequestMapping(value = "/search", params = "nextpage", method = RequestMethod.POST)
+	public String nextpage(@ModelAttribute("searchform") CompanyForm form, Model model) {
+		return searchmain(form, model, Mode.NEXTPAGE);
+	}
+	
+ 	/**
+	 * ページ送り	最終ページ
+	 * @param	form	検索条件
+	 * @param	model	Mode
+	 * @return
+	 */
+	@RequestMapping(value = "/search", params = "lastpage", method = RequestMethod.POST)
+	public String lastpage(@ModelAttribute("searchform") CompanyForm form, Model model) {
+		return searchmain(form, model, Mode.LASTPAGE);
+	}
+	
 	/**
 	 * 詳細ページへ遷移する。
 	 * 

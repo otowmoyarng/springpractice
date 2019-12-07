@@ -51,10 +51,10 @@
 		        		</div>
 		        		<div class="searchresult-right">
 			        		<div class="pagenavigaton">
-			        			<a href="companylist.html" th:href="@{/firstpage}">&laquo;</a>
-			        			<a href="companylist.html" th:href="@{/prevpage}">&lsaquo;</a>
-			        			<a href="companylist.html" th:href="@{/nextpage}">&rsaquo;</a>
-			        			<a href="companylist.html" th:href="@{/lastpage}">&raquo;</a>
+			        			<a href="" onclick="onclick_PagenationSubmit('searchcondition', '/company/search?firstpage'); return false;">&laquo;</a>
+			        			<a href="" onclick="onclick_PagenationSubmit('searchcondition', '/company/search?prevpage'); return false;">&lsaquo;</a>
+			        			<a href="" onclick="onclick_PagenationSubmit('searchcondition', '/company/search?nextpage'); return false;">&rsaquo;</a>
+			        			<a href="" onclick="onclick_PagenationSubmit('searchcondition', '/company/search?lastpage'); return false;">&raquo;</a>
 			        			<span th:text="*{currentpage}">0</span>
 			        			<input type="hidden" th:field="*{currentpage}" />
 			        			<span>／</span>
@@ -90,7 +90,7 @@
 	        						    <td class="column-companyname" th:text="${row.companyname}">会社名</td>
 	        						    <td class="column-companyno">
 	        						    	<a href="./companyitem.html"
-	        						    	    th:href="@{/companyitem(companykbn=${row.companykbn},companyno=${row.companyno},companybno=${row.companybno})}"
+	        						    	    th:href="@{/company/item(companykbn=${row.companykbn},companyno=${row.companyno},companybno=${row.companybno})}"
 	        						    	    th:text="${row.companyno}">会社番号</a>
 	        						    </td>
 	        						    <td class="column-companyrname" th:text="${row.companyrname}">会社カナ名</td>

@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jp.co.product.system.app.bean.CompanyResultBean;
-import jp.co.product.system.app.bean.SearchResultContainer;
 import jp.co.product.system.app.form.CompanyForm;
 import jp.co.product.system.app.form.CompanyItemForm;
 import jp.co.product.system.app.service.SearchService;

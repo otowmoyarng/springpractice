@@ -3,6 +3,8 @@
  * 複数画面で使用するjsモジュールを配置する
  */
 
+const CONTEXTROOT = 'product';
+
 /**
  * 画面初回起動
  */
@@ -50,4 +52,19 @@ function showSearchDialogTest() {
     var option = 'dialogheight=768; dialogwidth=1280;';
     var result = window.showModalDialog('./searchDialog.html', searchparamters, option);
     console.log('result:' + result);
+}
+
+/**
+ * ページ送りのonclickイベント
+ * @returns
+ */
+function onclick_PagenationSubmit(formname, actionurl) {
+	console.log('formname:' + formname);
+	console.log('actionurl:' + actionurl);
+	
+	var pageform = document.forms[formname];
+	console.log('actionurl:' + pageform.action);
+	pageform.action = '/' + CONTEXTROOT + actionurl;
+	console.log('actionurl:' + pageform.action);
+	pageform.submit();
 }
