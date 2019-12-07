@@ -7,17 +7,21 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jp.co.product.system.app.bean.SearchFormBean;
-import jp.co.product.system.app.bean.SearchResultBean;
+import jp.co.product.system.app.bean.CompanyFormBean;
+import jp.co.product.system.app.bean.CompanyResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
+import jp.co.product.system.app.dxo.CompanyDxo;
 import jp.co.product.system.app.dxo.PagenationItemDxo;
-import jp.co.product.system.app.form.SearchForm;
+import jp.co.product.system.app.entity.CompanyEntity;
+import jp.co.product.system.app.form.CompanyForm;
 import jp.co.product.system.app.mapper.SearchMapper;
 import jp.co.product.system.common.enums.Mode;
 
 @Service
 public class SearchServiceImpl implements SearchService {
 
+	@Autowired
+	private CompanyDxo companydxo;
 	@Autowired
 	private PagenationItemDxo pagenationdxo;
 	@Autowired
@@ -28,8 +32,8 @@ public class SearchServiceImpl implements SearchService {
 	 * @return	SearchForm
 	 */
 	@Override
-	public SearchForm init() {
-		SearchForm form = new SearchForm();
+	public CompanyForm init() {
+		CompanyForm form = new CompanyForm();
 		form.setCompanykbn("1");
 		return form;
 	}
@@ -40,10 +44,10 @@ public class SearchServiceImpl implements SearchService {
 	 * @return	検索結果
 	 */
 	@Override
-	public SearchResultContainer<SearchResultBean> search(SearchFormBean form, Mode mode) {
+	public SearchResultContainer<CompanyResultBean> search(CompanyFormBean form, Mode mode) {
 		
-		SearchResultContainer<SearchResultBean> container = new SearchResultContainer<SearchResultBean>();
-		container.setSearchlist(mapper.getSearchList());
+		SearchResultContainer<CompanyResultBean> container = new SearchResultContainer<CompanyResultBean>();
+		container.setSearchlist(getCompanyList());
 		
 		switch(mode) {
 			case SEARCH:
@@ -77,11 +81,11 @@ public class SearchServiceImpl implements SearchService {
 	 * 明細を取得する
 	 */
 	@Override
-	public SearchResultBean searchitem(String companykbn, String companyno, String companybno) {
+	public CompanyResultBean searchitem(String companykbn, String companyno, String companybno) {
 	
-		List<SearchResultBean> searchlist = mapper.getSearchList();
-		SearchResultBean result = null;
-		for (SearchResultBean entity : searchlist) {
+		List<CompanyResultBean> searchlist = getCompanyList();
+		CompanyResultBean result = null;
+		for (CompanyResultBean entity : searchlist) {
 			if (Objects.equals(companykbn, entity.getCompanykbn())
 			 && Objects.equals(companyno, entity.getCompanyno())
 			 && Objects.equals(companybno, entity.getCompanybno())) {
@@ -89,7 +93,7 @@ public class SearchServiceImpl implements SearchService {
 				break;
 			}
 		}
-		return result == null ? new SearchResultBean() : result;
+		return result == null ? new CompanyResultBean() : result;
 	}
 	
 	/**
@@ -98,7 +102,7 @@ public class SearchServiceImpl implements SearchService {
 	 * @return	ファイル出力データリスト
 	 */
 	@Override
-	public List<String> output(List<SearchResultBean> list) {
+	public List<String> output(List<CompanyResultBean> list) {
 		
 		List<String> outputlist = new ArrayList<String>();
 		
@@ -107,7 +111,7 @@ public class SearchServiceImpl implements SearchService {
 		
 		// 明細行出力
 		StringBuilder sb = null;
-		for (SearchResultBean row : list) {
+		for (CompanyResultBean row : list) {
 			sb = new StringBuilder();
 			sb.append(row.getCompanykbn() + ",");
 			sb.append(row.getCompanyname() + ",");
@@ -117,5 +121,20 @@ public class SearchServiceImpl implements SearchService {
 		}
 		
 		return outputlist;
+	}
+	
+	/**
+	 * CompanyList取得
+	 * @return	CompanyList
+	 */
+	private List<CompanyResultBean> getCompanyList() {
+		
+		List<CompanyResultBean> beanlist = new ArrayList<CompanyResultBean>();
+		List<CompanyEntity> entitylist = mapper.getCompanyList();
+		for (CompanyEntity entity : entitylist) {
+			beanlist.add(companydxo.copyEntityToBean(entity, null));
+		}
+		return beanlist;
+		
 	}
 }

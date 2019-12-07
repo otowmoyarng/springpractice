@@ -1,6 +1,6 @@
 package jp.co.product.system.app.bean;
 
-public class SearchResultBean {
+public class CompanyResultBean {
 
 	private String companykbn;
 	private String companyname;

@@ -2,7 +2,7 @@ package jp.co.product.system.app.bean;
 
 import jp.co.product.system.common.bean.PagenationItem;
 
-public class SearchFormBean implements PagenationItem {
+public class CompanyFormBean implements PagenationItem {
 
 	private String companykbn;
 	private String companyno;

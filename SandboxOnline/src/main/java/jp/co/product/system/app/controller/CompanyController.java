@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
-import jp.co.product.system.app.bean.SearchResultBean;
+import jp.co.product.system.app.bean.CompanyResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
 import jp.co.product.system.app.dxo.PagenationItemDxo;
-import jp.co.product.system.app.dxo.SearchFormDxo;
+import jp.co.product.system.app.dxo.CompanyDxo;
 import jp.co.product.system.app.bean.CompanySessionDTO;
-import jp.co.product.system.app.bean.SearchFormBean;
-import jp.co.product.system.app.form.SearchForm;
+import jp.co.product.system.app.bean.CompanyFormBean;
+import jp.co.product.system.app.form.CompanyForm;
 import jp.co.product.system.app.service.SearchService;
 import jp.co.product.system.common.enums.Mode;
 
@@ -34,7 +34,7 @@ import jp.co.product.system.common.enums.Mode;
 public class CompanyController extends ProductBaseConroller {
 
 	@Autowired
-	private SearchFormDxo formdxo;
+	private CompanyDxo companydxo;
 	@Autowired
 	private PagenationItemDxo pagenationdxo;
 	@Autowired
@@ -66,7 +66,7 @@ public class CompanyController extends ProductBaseConroller {
 	 * @return
 	 */
 	@RequestMapping(value = "/search", params = "search", method = RequestMethod.POST)
-	public String search(@ModelAttribute("searchform") SearchForm form, Model model) {
+	public String search(@ModelAttribute("searchform") CompanyForm form, Model model) {
 		return searchmain(form, model, Mode.SEARCH);
 	}
 	
@@ -84,7 +84,7 @@ public class CompanyController extends ProductBaseConroller {
 	public String item(@RequestParam(value = "companykbn", required = false) String companykbn,
 					   @RequestParam(value = "companyno", required = false) String companyno,
 					   @RequestParam(value = "companybno", required = false) String companybno,
-					   @ModelAttribute("searchform") SearchForm form,
+					   @ModelAttribute("searchform") CompanyForm form,
 					   Model model,
 					   SessionStatus sessionStatus,
 					   HttpServletRequest request) {
@@ -104,16 +104,16 @@ public class CompanyController extends ProductBaseConroller {
 	 * @return
 	 */
 	@RequestMapping(value = "/output", method = RequestMethod.GET)
-	public String output(@ModelAttribute("searchform") SearchForm form, HttpServletResponse response) {
+	public String output(@ModelAttribute("searchform") CompanyForm form, HttpServletResponse response) {
 		
 		// HTTPヘッダー設定
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment; filename=" + "一覧_" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) +".csv");
 		
 		// 出力内容
-		SearchFormBean formbean = this.formdxo.copyFormToBean(form, null);
+		CompanyFormBean formbean = this.companydxo.copyFormToBean(form, null);
 		
-		SearchResultContainer<SearchResultBean> container = this.service.search(formbean, Mode.OUTPUT);
+		SearchResultContainer<CompanyResultBean> container = this.service.search(formbean, Mode.OUTPUT);
 		
 		if (container.getSearchlist().isEmpty()) {
 			return null;
@@ -142,7 +142,7 @@ public class CompanyController extends ProductBaseConroller {
 	@RequestMapping(value = "/research")
 	public String research(CompanySessionDTO sessiondto, Model model) {
 		
-		SearchForm form = convertSessionDTOToForm(sessiondto);
+		CompanyForm form = convertSessionDTOToForm(sessiondto);
 		return searchmain(form, model, Mode.SEARCH);
 	}
 	
@@ -152,11 +152,11 @@ public class CompanyController extends ProductBaseConroller {
 	 * @param	model	Mode
 	 * @return
 	 */
-	private String searchmain(SearchForm form, Model model, Mode mode) {
+	private String searchmain(CompanyForm form, Model model, Mode mode) {
 		
-		SearchFormBean formbean = this.formdxo.copyFormToBean(form, null);
+		CompanyFormBean formbean = this.companydxo.copyFormToBean(form, null);
 		
-		final SearchResultContainer<SearchResultBean> container = this.service.search(formbean, mode);
+		final SearchResultContainer<CompanyResultBean> container = this.service.search(formbean, mode);
 		
 		this.pagenationdxo.copyPagenationItemValue(container, form);
 		
@@ -172,7 +172,7 @@ public class CompanyController extends ProductBaseConroller {
 	 * @param	src	検索条件
 	 * @return
 	 */
-	private CompanySessionDTO convertFormToSessionDTO(SearchForm src) {
+	private CompanySessionDTO convertFormToSessionDTO(CompanyForm src) {
 		
 		CompanySessionDTO trg = new CompanySessionDTO();
 		
@@ -188,9 +188,9 @@ public class CompanyController extends ProductBaseConroller {
 	 * @param	src	検索条件
 	 * @return
 	 */
-	private SearchForm convertSessionDTOToForm(CompanySessionDTO src) {
+	private CompanyForm convertSessionDTOToForm(CompanySessionDTO src) {
 		
-		SearchForm trg = new SearchForm();
+		CompanyForm trg = new CompanyForm();
 		
 		trg.setCompanykbn(src.getCompanykbn());
 		trg.setCompanyno(src.getCompanyno());

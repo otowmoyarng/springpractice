@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jp.co.product.system.app.bean.SearchResultBean;
+import jp.co.product.system.app.bean.CompanyResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
-import jp.co.product.system.app.form.SearchForm;
-import jp.co.product.system.app.form.SearchItemForm;
+import jp.co.product.system.app.form.CompanyForm;
+import jp.co.product.system.app.form.CompanyItemForm;
 import jp.co.product.system.app.service.SearchService;
 
 @Controller
@@ -47,7 +47,7 @@ public class CompanyItemController extends ProductBaseConroller {
 					   @RequestParam(value = "companybno", required = false) String companybno,
 					   Model model,
 					   RedirectAttributes redirectAttribute,
-					   @ModelAttribute("searchform") SearchForm form) {
+					   @ModelAttribute("searchform") CompanyForm form) {
 		
 		// 一覧画面で選択したリンクのパラメーターとformが設定されている
 		// ログ
@@ -71,7 +71,7 @@ public class CompanyItemController extends ProductBaseConroller {
 	@RequestMapping(value = "/companyitem/init", params = "init")
 	public String init(Model model,
 						HttpServletRequest request,
-						@ModelAttribute("searchform") SearchForm form) {
+						@ModelAttribute("searchform") CompanyForm form) {
 		
 		String companykbn = request.getAttribute("companykbn").toString();
 		String companyno = request.getAttribute("companyno").toString();
@@ -91,7 +91,7 @@ public class CompanyItemController extends ProductBaseConroller {
 	 * 更新処理
 	 */
 	@RequestMapping(value = "/companyitem", params = "update", method = RequestMethod.POST)
-	public void update(@ModelAttribute("companyitem") SearchItemForm form) {
+	public void update(@ModelAttribute("companyitem") CompanyItemForm form) {
 		System.out.print("1tuuka 1");
 	}
 }

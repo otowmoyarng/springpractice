@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import jp.co.product.system.app.bean.SearchFormBean;
-import jp.co.product.system.app.bean.SearchResultBean;
+import jp.co.product.system.app.bean.CompanyFormBean;
+import jp.co.product.system.app.bean.CompanyResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
-import jp.co.product.system.app.dxo.SearchFormDxo;
-import jp.co.product.system.app.form.SearchForm;
+import jp.co.product.system.app.dxo.CompanyDxo;
+import jp.co.product.system.app.form.CompanyForm;
 import jp.co.product.system.app.service.SearchService;
 import jp.co.product.system.common.enums.Mode;
 
@@ -28,7 +28,7 @@ import jp.co.product.system.common.enums.Mode;
 public class SearchController extends ProductBaseConroller {
 
 	@Autowired
-	private SearchFormDxo formdxo;
+	private CompanyDxo formdxo;
 	@Autowired
 	private SearchService service;
 	
@@ -48,8 +48,8 @@ public class SearchController extends ProductBaseConroller {
 	public ModelAndView init() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("searchDialog");
-		mv.addObject("searchform", new SearchForm());
-		mv.addObject("searchresult", new SearchResultContainer<SearchResultBean>());
+		mv.addObject("searchform", new CompanyForm());
+		mv.addObject("searchresult", new SearchResultContainer<CompanyResultBean>());
 		return mv;
 	}
 	
@@ -59,9 +59,9 @@ public class SearchController extends ProductBaseConroller {
 	 * @return
 	 */
 	@RequestMapping(value = "/dosearch", method = RequestMethod.POST)
-	public ModelAndView search(@ModelAttribute("searchform") SearchForm form) {
+	public ModelAndView search(@ModelAttribute("searchform") CompanyForm form) {
 		
-		SearchFormBean formbean = this.formdxo.copyFormToBean(form, null);
+		CompanyFormBean formbean = this.formdxo.copyFormToBean(form, null);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("searchDialog");
