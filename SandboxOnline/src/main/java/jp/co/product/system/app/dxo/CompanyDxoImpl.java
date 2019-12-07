@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import jp.co.product.system.app.bean.CompanyFormBean;
 import jp.co.product.system.app.bean.CompanyResultBean;
+import jp.co.product.system.app.entity.CompanyCondition;
 import jp.co.product.system.app.entity.CompanyEntity;
 import jp.co.product.system.app.form.CompanyForm;
 
@@ -27,6 +28,17 @@ public class CompanyDxoImpl implements CompanyDxo {
 		return bean;
 	}
 
+	@Override
+	public CompanyCondition copyBeanToCondition(CompanyFormBean bean, CompanyCondition con) {
+		if (con == null) {
+			con = new CompanyCondition();
+		}
+		con.setCompanykbn(bean.getCompanykbn());
+		con.setCompanyno(bean.getCompanyno());
+		pagenationdxo.copyPagenationItemValue(bean, con);
+		return con;
+	}
+	
 	@Override
 	public CompanyResultBean copyEntityToBean(CompanyEntity entity, CompanyResultBean bean) {
 		

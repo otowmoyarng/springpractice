@@ -12,10 +12,12 @@ import jp.co.product.system.app.bean.CompanyResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
 import jp.co.product.system.app.dxo.CompanyDxo;
 import jp.co.product.system.app.dxo.PagenationItemDxo;
+import jp.co.product.system.app.entity.CompanyCondition;
 import jp.co.product.system.app.entity.CompanyEntity;
 import jp.co.product.system.app.form.CompanyForm;
 import jp.co.product.system.app.mapper.SearchMapper;
 import jp.co.product.system.common.enums.Mode;
+import jp.co.product.system.sys.cache.SystemParameterUtils;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -41,18 +43,42 @@ public class SearchServiceImpl implements SearchService {
 	/**
 	 * ŒŸõˆ—
 	 * @param	form	ŒŸõğŒ
+	 * @param	mode	Mode
 	 * @return	ŒŸõŒ‹‰Ê
 	 */
 	@Override
 	public SearchResultContainer<CompanyResultBean> search(CompanyFormBean form, Mode mode) {
 		
 		SearchResultContainer<CompanyResultBean> container = new SearchResultContainer<CompanyResultBean>();
+		
+		CompanyCondition con = companydxo.copyBeanToCondition(form, null);
+		
+		if (mode == Mode.OUTPUT) {
+			con.setOutputmaxcount(SystemParameterUtils.getCsvMaxCount());
+		} else {
+			con.setSearchmaxcount(SystemParameterUtils.getSearchMaxCount());
+		}
+		con.setMode(mode.name());
+		
+		int searchcount;
+		int totalpage;
+		if (mode == Mode.SEARCH) {
+			searchcount = mapper.getCompanyListCount(con);
+			totalpage =
+					(searchcount / (int)con.getSearchmaxcount())
+				  + (searchcount % (int)con.getSearchmaxcount() > 0 ? 1 : 0);
+		} else {
+			searchcount = form.getSearchcount();
+			totalpage = form.getTotalpage();
+		}
+		
 		container.setSearchlist(getCompanyList());
 		
 		switch(mode) {
 			case SEARCH:
 				container.setCurrentpage(1);
-				container.setSearchcount(container.getSearchlist().size());
+				container.setTotalpage(totalpage);
+				container.setSearchcount(searchcount);
 				break;
 			case FIRSTPAGE:
 				pagenationdxo.copyPagenationItemValue(form, container);
@@ -128,13 +154,22 @@ public class SearchServiceImpl implements SearchService {
 	 * @return	CompanyList
 	 */
 	private List<CompanyResultBean> getCompanyList() {
+		return getCompanyList(null, Mode.SEARCH);
+	}
+	
+	/**
+	 * CompanyListæ“¾
+	 * @param	con	ŒŸõğŒ
+	 * @param	mode	Mode
+	 * @return	CompanyList
+	 */
+	private List<CompanyResultBean> getCompanyList(CompanyCondition con, Mode mode) {
 		
 		List<CompanyResultBean> beanlist = new ArrayList<CompanyResultBean>();
-		List<CompanyEntity> entitylist = mapper.getCompanyList();
+		List<CompanyEntity> entitylist = mapper.getCompanyList(con);
 		for (CompanyEntity entity : entitylist) {
 			beanlist.add(companydxo.copyEntityToBean(entity, null));
 		}
 		return beanlist;
-		
 	}
 }

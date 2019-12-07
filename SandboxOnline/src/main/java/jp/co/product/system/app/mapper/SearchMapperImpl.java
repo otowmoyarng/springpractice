@@ -7,13 +7,19 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jp.co.product.system.app.entity.CompanyCondition;
 import jp.co.product.system.app.entity.CompanyEntity;
 
 @Service
 public class SearchMapperImpl implements SearchMapper {
 
 	@Override
-	public List<CompanyEntity> getCompanyList() {
+	public int getCompanyListCount(CompanyCondition con) {
+		return getCompanyList(con).size();
+	}
+	
+	@Override
+	public List<CompanyEntity> getCompanyList(CompanyCondition con) {
 		List<CompanyEntity> searchlist = new ArrayList<CompanyEntity>();
 		final SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd HH24:mm:ss");
 		for (int count = 0; count < 10; count++) {
