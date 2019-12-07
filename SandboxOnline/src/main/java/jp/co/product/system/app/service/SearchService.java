@@ -2,14 +2,19 @@ package jp.co.product.system.app.service;
 
 import java.util.List;
 
+import jp.co.product.system.app.bean.SearchFormBean;
 import jp.co.product.system.app.bean.SearchResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
 import jp.co.product.system.app.form.SearchForm;
+import jp.co.product.system.common.enums.Mode;
 
 public interface SearchService {
 
+	// ‰Šú•\¦
+	SearchForm init();
+	
 	// ŒŸõˆ—
-	SearchResultContainer<SearchResultBean> search(SearchForm form);
+	SearchResultContainer<SearchResultBean> search(SearchFormBean form, Mode mode);
 	
 	// ŒŸõˆ—
 	SearchResultBean searchitem(String companykbn, String companyno, String companybno);

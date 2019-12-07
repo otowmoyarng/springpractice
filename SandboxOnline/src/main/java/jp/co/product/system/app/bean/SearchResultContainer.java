@@ -2,29 +2,37 @@ package jp.co.product.system.app.bean;
 
 import java.util.List;
 
-public class SearchResultContainer<T> {
+import jp.co.product.system.common.bean.PagenationItem;
+
+public class SearchResultContainer<T> implements PagenationItem {
 	
-	private String currentpage;
-	private String totalpage;
-	private String searchcount;
+	private int currentpage;
+	private int totalpage;
+	private int searchcount;
 	private List<T> searchlist;
 	
-	public String getCurrentpage() {
+	@Override
+	public int getCurrentpage() {
 		return currentpage;
 	}
-	public void setCurrentpage(String currentpage) {
+	@Override
+	public void setCurrentpage(int currentpage) {
 		this.currentpage = currentpage;
 	}
-	public String getTotalpage() {
+	@Override
+	public int getTotalpage() {
 		return totalpage;
 	}
-	public void setTotalpage(String totalpage) {
+	@Override
+	public void setTotalpage(int totalpage) {
 		this.totalpage = totalpage;
 	}
-	public String getSearchcount() {
+	@Override
+	public int getSearchcount() {
 		return searchcount;
 	}
-	public void setSearchcount(String searchcount) {
+	@Override
+	public void setSearchcount(int searchcount) {
 		this.searchcount = searchcount;
 	}
 	public List<T> getSearchlist() {

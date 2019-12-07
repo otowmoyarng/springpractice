@@ -1,0 +1,33 @@
+@charset "UTF-8";
+.searchresult-header div {
+	display: inline-block;
+}
+.pagenavigaton {
+	float: right;
+}
+.searchlistheader th {
+	text-align: center;
+}
+.searchlistheader,
+.searchlistmeisai {
+	table-layout: auto;
+}
+.column-companykbn {
+	text-align: center;
+	width: 70px;
+}
+.column-companyname {
+	width: 150px;
+}
+.column-companyno {
+	width: 70px;
+}
+.column-companyrname {
+	width: 100px;
+}
+.column-hojinno {
+	width: 110px;
+}
+.column-createdate {
+	width: 150px;
+}

@@ -1,8 +1,8 @@
-package jp.co.product.system.app.form;
+package jp.co.product.system.app.bean;
 
 import jp.co.product.system.common.bean.PagenationItem;
 
-public class SearchForm implements PagenationItem {
+public class SearchFormBean implements PagenationItem {
 
 	private String companykbn;
 	private String companyno;

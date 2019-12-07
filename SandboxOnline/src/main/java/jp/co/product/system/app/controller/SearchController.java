@@ -15,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.co.product.system.app.bean.SearchFormBean;
 import jp.co.product.system.app.bean.SearchResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
+import jp.co.product.system.app.dxo.SearchFormDxo;
 import jp.co.product.system.app.form.SearchForm;
 import jp.co.product.system.app.service.SearchService;
+import jp.co.product.system.common.enums.Mode;
 
 @Controller
 @RequestMapping("/search")
 public class SearchController extends ProductBaseConroller {
 
+	@Autowired
+	private SearchFormDxo formdxo;
 	@Autowired
 	private SearchService service;
 	
@@ -56,50 +61,12 @@ public class SearchController extends ProductBaseConroller {
 	@RequestMapping(value = "/dosearch", method = RequestMethod.POST)
 	public ModelAndView search(@ModelAttribute("searchform") SearchForm form) {
 		
+		SearchFormBean formbean = this.formdxo.copyFormToBean(form, null);
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("searchDialog");
 		mv.addObject("searchform", form);
-		mv.addObject("searchresult", this.service.search(form));
+		mv.addObject("searchresult", this.service.search(formbean, Mode.SEARCH));
 		return mv;
-	}
-	
-	/**
-	 * ファイルダウンロード
-	 * @param	form	検索条件
-	 * @return
-	 */
-	@RequestMapping(value = "/output", method = RequestMethod.GET)
-	public String output(@ModelAttribute("searchform") SearchForm form, HttpServletResponse response) {
-		
-		// HTTPヘッダー設定
-		response.setContentType("application/octet-stream");
-		response.setHeader("Content-Disposition", "attachment; filename=" + "一覧_" + currentDateTime() +".csv");
-		
-		// 出力内容
-		SearchResultContainer<SearchResultBean> container = this.service.search(form);
-		if (container.getSearchlist().isEmpty()) {
-			return null;
-		}
-		
- 		// 出力処理
-		final List<String> outputdata = this.service.output(container.getSearchlist());
-		final byte[] b = outputdata.toString().getBytes();
-		OutputStream os = null;
-		try {
-			os = response.getOutputStream();
-			os.write(b);
-			os.flush();
-		} catch (IOException e) {
-			super.logger.error(e.toString());
-		}
-		return null;
-	}
-	
-	/**
-	 * 現在の日付と時刻を取得する。
-	 * @return	処理日時(yyyyMMddHHmmss形式)
-	 */
-	private String currentDateTime() {
-		return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 	}
 }

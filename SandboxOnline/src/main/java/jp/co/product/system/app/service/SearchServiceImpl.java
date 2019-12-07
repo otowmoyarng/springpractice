@@ -4,18 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.product.system.app.bean.SearchFormBean;
 import jp.co.product.system.app.bean.SearchResultBean;
 import jp.co.product.system.app.bean.SearchResultContainer;
+import jp.co.product.system.app.dxo.PagenationItemDxo;
 import jp.co.product.system.app.form.SearchForm;
+import jp.co.product.system.app.mapper.SearchMapper;
+import jp.co.product.system.common.enums.Mode;
 
 @Service
 public class SearchServiceImpl implements SearchService {
 
-	// TODO
-//	@Autowired
-//	private SearchMapper mapper;
+	@Autowired
+	private PagenationItemDxo pagenationdxo;
+	@Autowired
+	private SearchMapper mapper;
+	
+	/**
+	 * 初期表示処理
+	 * @return	SearchForm
+	 */
+	@Override
+	public SearchForm init() {
+		SearchForm form = new SearchForm();
+		form.setCompanykbn("1");
+		return form;
+	}
 	
 	/**
 	 * 検索処理
@@ -23,38 +40,35 @@ public class SearchServiceImpl implements SearchService {
 	 * @return	検索結果
 	 */
 	@Override
-	public SearchResultContainer<SearchResultBean> search(SearchForm form) {
+	public SearchResultContainer<SearchResultBean> search(SearchFormBean form, Mode mode) {
 		
 		SearchResultContainer<SearchResultBean> container = new SearchResultContainer<SearchResultBean>();
+		container.setSearchlist(mapper.getSearchList());
 		
-		// TODO
-		// サンプル実装での暫定対策
-//		List<SearchResultBean> searchalllist = new ArrayList<SearchResultBean>();
-//		for (int count = 0; count < 4; count++) {
-//			final String kbn = Integer.toString(count + 1);
-//			SearchResultBean bean = new SearchResultBean();
-//			bean.setCompanykbn(kbn);
-//			bean.setCompanyname("会社名" + kbn);
-//			bean.setCompanyname("会社カナ" + kbn);
-//			bean.setCompanyno("123456789000" + kbn);
-//			searchalllist.add(bean);
-//		}
-		
-		// 検索処理
-//		List<SearchResultBean> searchlist = searchalllist.stream().filter(entity -> {
-//			if (Objects.equals(form.getCompanyno(), "")) {
-//				return Objects.equals(form.getCompanykbn(), entity.getCompanykbn());
-//			} else {
-//				return Objects.equals(form.getCompanykbn(), entity.getCompanykbn())
-//					&& Objects.equals(form.getCompanyno(), entity.getCompanyno());
-//			}
-//		}).collect(Collectors.toList());
-//		
-//		if (searchlist == null)
-//			searchlist = new ArrayList<SearchResultBean>();
-		// TODO
-		
-		container.setSearchlist(getSearchList());
+		switch(mode) {
+			case SEARCH:
+				container.setCurrentpage(1);
+				container.setSearchcount(container.getSearchlist().size());
+				break;
+			case FIRSTPAGE:
+				pagenationdxo.copyPagenationItemValue(form, container);
+				container.setCurrentpage(1);
+				break;
+			case PREVPAGE:
+				pagenationdxo.copyPagenationItemValue(form, container);
+				container.setCurrentpage(form.getCurrentpage() - 1);
+				break;
+			case NEXTPAGE:
+				pagenationdxo.copyPagenationItemValue(form, container);
+				container.setCurrentpage(form.getCurrentpage() + 1);
+				break;
+			case LASTPAGE:
+				pagenationdxo.copyPagenationItemValue(form, container);
+				container.setCurrentpage(form.getTotalpage());
+				break;
+			default:
+				break;
+		}
 		
 		return container;
 	}
@@ -65,7 +79,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public SearchResultBean searchitem(String companykbn, String companyno, String companybno) {
 	
-		List<SearchResultBean> searchlist = getSearchList();
+		List<SearchResultBean> searchlist = mapper.getSearchList();
 		SearchResultBean result = null;
 		for (SearchResultBean entity : searchlist) {
 			if (Objects.equals(companykbn, entity.getCompanykbn())
@@ -103,30 +117,5 @@ public class SearchServiceImpl implements SearchService {
 		}
 		
 		return outputlist;
-	}
-	
-	/**
-	 * 検索結果を取得する
-	 * @return
-	 */
-	List<SearchResultBean> getSearchList() {
-		
-		List<SearchResultBean> searchlist = new ArrayList<SearchResultBean>();
-		for (int count = 0; count < 4; count++) {
-			final String kbn = Integer.toString(count + 1);
-			
-			//if (Objects.equals(form.getCompanykbn(), kbn)) {
-				
-				SearchResultBean bean = new SearchResultBean();
-				bean.setCompanykbn(kbn);
-				bean.setCompanyname("会社名" + kbn);
-				bean.setCompanyname("会社カナ" + kbn);
-				bean.setCompanyno("100" + kbn + "00");
-				bean.setCompanybno("000001");
-				bean.setHojinno("123456789000" + kbn);
-				searchlist.add(bean);
-			//}
-		}
-		return searchlist;
 	}
 }

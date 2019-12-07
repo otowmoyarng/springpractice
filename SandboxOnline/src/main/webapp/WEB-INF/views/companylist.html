@@ -51,14 +51,18 @@
 		        		</div>
 		        		<div class="searchresult-right">
 			        		<div class="pagenavigaton">
-			        			<a href="" th:href="@{/firstpage}">&laquo;</a>
-			        			<a href="" th:href="@{/prevpage}">&lsaquo;</a>
-			        			<a href="" th:href="@{/nextpage}">&rsaquo;</a>
-			        			<a href="" th:href="@{/lastpage}">&raquo;</a>
-			        			<span th:text="${searchresult.currentpage}">0</span>
+			        			<a href="companylist.html" th:href="@{/firstpage}">&laquo;</a>
+			        			<a href="companylist.html" th:href="@{/prevpage}">&lsaquo;</a>
+			        			<a href="companylist.html" th:href="@{/nextpage}">&rsaquo;</a>
+			        			<a href="companylist.html" th:href="@{/lastpage}">&raquo;</a>
+			        			<span th:text="*{currentpage}">0</span>
+			        			<input type="hidden" th:field="*{currentpage}" />
 			        			<span>／</span>
-			        			<span th:text="${searchresult.totalpage}">0</span>
-			        			<span th:text="${searchresult.searchcount}">0</span>
+			        			<span th:text="*{totalpage}">0</span>
+			        			<span>&emsp;&emsp;</span>
+			        			<input type="hidden" th:field="*{totalpage}" />
+			        			<span th:text="*{searchcount}">0</span>
+			        			<input type="hidden" th:field="*{searchcount}" />
 			        			<span>件</span>
 			        		</div>
 		        		</div>
@@ -67,65 +71,73 @@
 	        			<table class="searchlistheader">
 	        				<thead>
 	        					<tr>
-	        						<th class="companykbn">会社区分</th>
-	        						<th class="companyname">会社名</th>
-	        						<th class="companyno">会社番号</th>
-	        						<th class="companyrname">会社カナ名</th>
-	        						<th class="hojinno">法人番号</th>
+	        						<th class="column-companykbn">会社区分</th>
+	        						<th class="column-companyname">会社名</th>
+	        						<th class="column-companyno">会社番号</th>
+	        						<th class="column-companyrname">会社カナ名</th>
+	        						<th class="column-hojinno">法人番号</th>
+	        						<th class="column-createdate">登録日時</th>
 	        					</tr>
 	        				</thead>
 	        			</table>
 	        		</div>
 	        		<div class="searchresult-tablerecord">
 	        			<table class="searchlistmeisai">
-	        				<tbody id="searchlist-tbody">
+	        				<tbody id="searchlist-tbody" th:if="${searchresult ne null}">
 	        				    <th:block th:each="row : ${searchresult.searchlist}">
 	      					        <tr>
-	        						    <td class="companykbn" th:text="${row.companykbn}">会社区分</td>
-	        						    <td class="companyname" th:text="${row.companyname}">会社名</td>
-	        						    <td class="companyno">
-	        						    	<a href="./companyitem.html" th:href="@{/companyitem(companykbn=${row.companykbn},companyno=${row.companyno},companybno=${row.companybno})}" th:text="${row.companyno}"></a>
+	        						    <td class="column-companykbn" th:text="${row.companykbn}">会社区分</td>
+	        						    <td class="column-companyname" th:text="${row.companyname}">会社名</td>
+	        						    <td class="column-companyno">
+	        						    	<a href="./companyitem.html"
+	        						    	    th:href="@{/companyitem(companykbn=${row.companykbn},companyno=${row.companyno},companybno=${row.companybno})}"
+	        						    	    th:text="${row.companyno}">会社番号</a>
 	        						    </td>
-	        						    <td class="companyrname" th:text="${row.companyrname}">会社カナ名</td>
-	        						    <td class="hojinno" th:text="${row.hojinno}">法人番号</td>
+	        						    <td class="column-companyrname" th:text="${row.companyrname}">会社カナ名</td>
+	        						    <td class="column-hojinno" th:text="${row.hojinno}">法人番号</td>
+	        						    <td class="column-createdate" th:text="${row.createdate}">登録日時</td>
 	        					    </tr>
 	        				    </th:block>
 	        				    <!--/*-->
 	      					        <tr>
-	        						    <td class="companykbn">Ａ</td>
-	        						    <td class="companyname">株式会社ACE</td>
-	        						    <td class="companyno">
+	        						    <td class="column-companykbn">Ａ</td>
+	        						    <td class="column-companyname">株式会社ACE</td>
+	        						    <td class="column-companyno">
 	        						    	<a href="./companyitem.html">111222</a>
 	        						    </td>
-	        						    <td class="companyrname">エース</td>
-	        						    <td class="hojinno">1234567890001</td>
+	        						    <td class="column-companyrname">エース</td>
+	        						    <td class="column-hojinno">1234567890001</td>
+	        						    <td class="column-createdate">2019/11/22 12:34:56</td>
 	        					    </tr>
 	      					        <tr>
-	        						    <td class="companykbn">B</td>
-	        						    <td class="companyname">株式会社BIG</td>
-	        						    <td class="companyno">
+	        						    <td class="column-companykbn">B</td>
+	        						    <td class="column-companyname">株式会社BIG</td>
+	        						    <td class="column-companyno">
 	        						    	<a href="./companyitem.html">111333</a>
 	        						    </td>
-	        						    <td class="companyrname">ビッグ</td>
-	        						    <td class="hojinno">1234567890002</td>
+	        						    <td class="column-companyrname">ビッグ</td>
+	        						    <td class="column-hojinno">1234567890002</td>
+	        						    <td class="column-createdate">2019/11/23 12:34:56</td>
 	        					    </tr>
 	      					        <tr>
-	        						    <td class="companykbn">C</td>
-	        						    <td class="companyname">株式会社CORP</td>
-	        						    <td class="companyno">
+	        						    <td class="column-companykbn">C</td>
+	        						    <td class="column-companyname">株式会社CORP</td>
+	        						    <td class="column-companyno">
 	        						    	<a href="./companyitem.html">111444</a>
 	        						    </td>
-	        						    <td class="companyrname">コープ</td>
-	        						    <td class="hojinno">1234567890003</td>
+	        						    <td class="column-companyrname">コープ</td>
+	        						    <td class="column-hojinno">1234567890003</td>
+	        						    <td class="column-createdate">2019/11/23 09:34:56</td>
 	        					    </tr>
 	      					        <tr>
-	        						    <td class="companykbn">D</td>
-	        						    <td class="companyname">株式会社Duck</td>
-	        						    <td class="companyno">
+	        						    <td class="column-companykbn">D</td>
+	        						    <td class="column-companyname">株式会社Duck</td>
+	        						    <td class="column-companyno">
 	        						    	<a href="./companyitem.html">111555</a>
 	        						    </td>
-	        						    <td class="companyrname">ダック</td>
-	        						    <td class="hojinno">1234567890005</td>
+	        						    <td class="column-companyrname">ダック</td>
+	        						    <td class="column-hojinno">1234567890005</td>
+	        						    <td class="column-createdate">2019/11/24 09:34:56</td>
 	        					    </tr>
 	        				    <!--*/-->
 	        				</tbody>
