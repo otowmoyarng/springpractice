@@ -3,6 +3,8 @@
  * 複数画面で使用するjsモジュールを配置する
  */
 
+const CONTEXTROOT = 'product';
+
 /**
  * 画面初回起動
  */
@@ -15,17 +17,54 @@ function showwindow() {
 /**
  * 検索ダイアログ表示
  */
-function showSearchDialog(companykbn, companyno_keyname) {
+function showSearchDialog() {
 	
-	// 会社番号を取得する
-    var cno = document.getElementById(companyno_keyname);
+	// 会社区分を取得する
+    var kbn = document.getElementById('companykbn');
     
-    var searchparamters = {};
-    searchparamters.companyno = cno.value;
-    searchparamters.companykbn = companykbn;
-//    window.alert('companyno:' + searchparamters.companyno);
-//    window.alert('companykbn:' + searchparamters.companykbn);
+	// 会社番号を取得する
+    var cno = document.getElementById('companyno');
+    
+    var searchparamters = new Array(kbn.value, cno.value);
+    console.log('companykbn:' + kbn.value);
+    console.log('companyno:' + cno.value);
     
     var option = 'dialogheight=768; dialogwidth=1280;';
-    window.showModalDialog('./search/init', searchparamters, option);
+    var result = window.showModalDialog('./search/init', searchparamters, option);
+    console.log('result:' + result);
+}
+
+/**
+ * 検索ダイアログ表示
+ */
+function showSearchDialogTest() {
+	
+	// 会社区分を取得する
+    var kbn = document.getElementById('companykbn');
+    
+	// 会社番号を取得する
+    var cno = document.getElementById('companyno');
+    
+    var searchparamters = new Array(kbn.value, cno.value);
+    console.log('companykbn:' + kbn.value);
+    console.log('companyno:' + cno.value);
+    
+    var option = 'dialogheight=768; dialogwidth=1280;';
+    var result = window.showModalDialog('./searchDialog.html', searchparamters, option);
+    console.log('result:' + result);
+}
+
+/**
+ * ページ送りのonclickイベント
+ * @returns
+ */
+function onclick_PagenationSubmit(formname, actionurl) {
+	console.log('formname:' + formname);
+	console.log('actionurl:' + actionurl);
+	
+	var pageform = document.forms[formname];
+	console.log('actionurl:' + pageform.action);
+	pageform.action = '/' + CONTEXTROOT + actionurl;
+	console.log('actionurl:' + pageform.action);
+	pageform.submit();
 }

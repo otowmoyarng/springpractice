@@ -1,15 +1,27 @@
 package jp.co.product.system.app.bean;
 
-import java.util.List;
-
 import jp.co.product.system.common.bean.PagenationItem;
 
-public class SearchResultContainer<T> implements PagenationItem {
-	
+public class CompanyFormBean implements PagenationItem {
+
+	private String companykbn;
+	private String companyno;
 	private int currentpage;
 	private int totalpage;
 	private int searchcount;
-	private List<T> searchlist;
+	
+	public String getCompanykbn() {
+		return companykbn;
+	}
+	public void setCompanykbn(String companykbn) {
+		this.companykbn = companykbn;
+	}
+	public String getCompanyno() {
+		return companyno;
+	}
+	public void setCompanyno(String companyno) {
+		this.companyno = companyno;
+	}
 	
 	@Override
 	public int getCurrentpage() {
@@ -34,11 +46,5 @@ public class SearchResultContainer<T> implements PagenationItem {
 	@Override
 	public void setSearchcount(int searchcount) {
 		this.searchcount = searchcount;
-	}
-	public List<T> getSearchlist() {
-		return searchlist;
-	}
-	public void setSearchlist(List<T> searchlist) {
-		this.searchlist = searchlist;
 	}
 }

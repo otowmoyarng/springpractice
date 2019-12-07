@@ -1,6 +1,6 @@
 package jp.co.product.system.app.bean;
 
-public class SearchResultBean {
+public class CompanyResultBean {
 
 	private String companykbn;
 	private String companyname;
@@ -8,6 +8,7 @@ public class SearchResultBean {
 	private String companyno;
 	private String companybno;
 	private String hojinno;
+	private String createdate;
 	
 	public String getCompanykbn() {
 		return companykbn;
@@ -44,5 +45,11 @@ public class SearchResultBean {
 	}
 	public void setHojinno(String hojinno) {
 		this.hojinno = hojinno;
+	}
+	public String getCreatedate() {
+		return createdate;
+	}
+	public void setCreatedate(String createdate) {
+		this.createdate = createdate;
 	}
 }

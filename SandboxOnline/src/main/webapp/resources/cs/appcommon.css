@@ -1,4 +1,11 @@
 @charset "UTF-8";
-/* body {
-	background-color: red;
-} */
+body {
+	min-height: 666px;
+	min-width: 1260px;
+	height: 666px;
+	width: 1260px;
+}
+article {
+	width: 95%;
+	margin: 0px;
+}

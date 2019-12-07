@@ -11,10 +11,17 @@
     		<fieldset>
     			<legend>検索画面モーダル表示</legend>
     			<div>
-    				<label>会社番号</label>
-	    			<input type="text" id="companyno" name="companyno" value="1234567890123" form="searchcondition" maxlength="13" placeholder="会社番号を入力" readonly="readonly"/>
+    				<label>会社区分</label>
+	    			<input type="text" id="companykbn" name="companykbn" value="1" form="searchcondition" maxlength="1" placeholder="会社区分を入力" />
     			</div>
-		        <button onclick="showSearchDialog('1', 'companyno')">検索画面表示</button>
+    			<div>
+    				<label>会社番号</label>
+	    			<input type="text" id="companyno" name="companyno" value="1234567890123" form="searchcondition" maxlength="13" placeholder="会社番号を入力" />
+    			</div>
+		        <button onclick="showSearchDialog()">検索画面表示</button>
+    			<!--/*-->
+		        <button onclick="showSearchDialogTest()">検索画面表示(直接)</button>
+		        <!--*/-->
 		        <br/>
 		        <a href="./companylist.html" th:href="@{/company/?init}">会社一覧へ</a>
     		</fieldset>

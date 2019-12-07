@@ -1,6 +1,6 @@
 package jp.co.product.system.app.form;
 
-public class SearchItemForm {
+public class CompanyItemForm {
 
 	private String companykbn;
 	private String companyname;
